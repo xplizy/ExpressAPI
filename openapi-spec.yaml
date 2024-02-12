@@ -1,0 +1,121 @@
+openapi: 3.0.0
+info:
+  title: LFC API
+  version: 1.0.0
+paths:
+  /players:
+    get:
+      summary: Get all players
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Player'
+    post:
+      summary: Create a new player
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NewPlayer'
+      responses:
+        '201':
+          description: Player created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Player'
+  /players/{id}:
+    get:
+      summary: Get a specific player by ID
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+          description: ID of the player
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Player'
+    put:
+      summary: Update a specific player by ID
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+          description: ID of the player
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdatePlayer'
+      responses:
+        '200':
+          description: Player updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Player'
+    delete:
+      summary: Delete a specific player by ID
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+          description: ID of the player
+      responses:
+        '204':
+          description: Player deleted
+
+components:
+  schemas:
+    Player:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        age:
+          type: integer
+        position:
+          type: string
+        clubs:
+          type: string
+    NewPlayer:
+      type: object
+      properties:
+        name:
+          type: string
+        age:
+          type: integer
+        position:
+          type: string
+        clubs:
+          type: string
+    UpdatePlayer:
+      type: object
+      properties:
+        name:
+          type: string
+        age:
+          type: integer
+        position:
+          type: string
+        clubs:
+          type: string
